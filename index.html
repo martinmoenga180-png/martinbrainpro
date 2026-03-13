@@ -21,108 +21,157 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:0
 .lver{font-size:.58rem;background:rgba(240,180,41,.15);border:1px solid rgba(240,180,41,.3);color:var(--gold);padding:2px 8px;border-radius:20px;font-weight:600;margin-left:4px}
 .hbtn{background:var(--surface2);border:1px solid var(--border2);color:var(--text2);padding:6px 14px;border-radius:7px;font-size:.75rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
 .hbtn:hover{border-color:var(--gold);color:var(--gold)}
-.app{display:grid;grid-template-columns:310px 1fr;flex:1;overflow:hidden}
+.app{display:grid;grid-template-columns:280px 1fr;flex:1;overflow:hidden}
+
+/* SIDEBAR */
 .sidebar{background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
-.spanel{flex:1;overflow-y:auto;padding:1.25rem;display:flex;flex-direction:column;gap:.9rem}
-.upzone{border:2px dashed var(--border2);border-radius:10px;padding:1.5rem 1rem;text-align:center;cursor:pointer;background:var(--surface2);transition:.3s;position:relative}
+.spanel{flex:1;overflow-y:auto;padding:1.1rem;display:flex;flex-direction:column;gap:.8rem}
+.upzone{border:2px dashed var(--border2);border-radius:10px;padding:1.3rem 1rem;text-align:center;cursor:pointer;background:var(--surface2);transition:.3s;position:relative}
 .upzone:hover{border-color:var(--gold);background:rgba(240,180,41,.04)}
 .upzone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
 .prog-wrap{display:none;flex-direction:column;gap:5px}.prog-wrap.show{display:flex}
-.prog-label{display:flex;justify-content:space-between;font-size:.7rem}
+.prog-label{display:flex;justify-content:space-between;font-size:.68rem}
 .prog-pct{color:var(--teal);font-weight:700}
 .prog-track{height:5px;background:var(--border);border-radius:3px;overflow:hidden}
 .prog-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:3px;transition:width .3s;width:0}
-.btn-gen{width:100%;padding:12px;border-radius:9px;border:none;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0b0f1a;font-weight:800;cursor:pointer;font-size:.9rem;font-family:'DM Sans',sans-serif;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-gen{width:100%;padding:11px;border-radius:9px;border:none;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#0b0f1a;font-weight:800;cursor:pointer;font-size:.88rem;font-family:'DM Sans',sans-serif;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px}
 .btn-gen:disabled{opacity:.4;cursor:not-allowed}
 .btn-gen:not(:disabled):hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(240,180,41,.3)}
-.divider{display:flex;align-items:center;gap:6px;font-size:.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;font-weight:700}
+
+/* TOPIC NAV in sidebar */
+.topic-nav{display:flex;flex-direction:column;gap:3px;margin-top:.3rem}
+.tnav-item{display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:7px;cursor:pointer;transition:all .15s;border:1px solid transparent}
+.tnav-item:hover{background:var(--surface2);border-color:var(--border)}
+.tnav-item.active{background:rgba(240,180,41,.1);border-color:rgba(240,180,41,.3)}
+.tnav-item.done{opacity:1}
+.tnav-item.pending{opacity:.45}
+.tnav-item.processing{opacity:1}
+.tnav-num{font-size:.58rem;font-family:'DM Mono',monospace;color:var(--text3);width:18px;flex-shrink:0;text-align:center}
+.tnav-title{font-size:.73rem;font-weight:600;color:var(--text);flex:1;line-height:1.3}
+.tnav-status{font-size:.75rem;flex-shrink:0}
+
+.divider{display:flex;align-items:center;gap:6px;font-size:.6rem;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;font-weight:700}
 .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
-.topic-area{width:100%;height:75px;background:var(--surface2);border:1px solid var(--border2);color:var(--text);padding:9px 11px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.82rem;resize:vertical;line-height:1.5}
+.topic-area{width:100%;height:65px;background:var(--surface2);border:1px solid var(--border2);color:var(--text);padding:8px 10px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.8rem;resize:none;line-height:1.5}
 .topic-area:focus{outline:none;border-color:var(--teal)}
 .topic-area::placeholder{color:var(--text3)}
-.tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.tbtn{padding:9px 6px;border-radius:7px;border:1px solid;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;transition:all .2s;text-align:center}
-.tbtn .ico{font-size:1.1rem}
+.tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.tbtn{padding:8px 5px;border-radius:7px;border:1px solid;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.67rem;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:2px;transition:all .2s;text-align:center}
+.tbtn .ico{font-size:1rem}
 .tbtn:hover{transform:translateY(-2px)}
-.tbtn.wide{grid-column:span 2;flex-direction:row;justify-content:center;gap:7px;padding:10px}
+.tbtn.wide{grid-column:span 2;flex-direction:row;justify-content:center;gap:6px;padding:8px}
 .c-gold{background:rgba(240,180,41,.1);border-color:rgba(240,180,41,.3);color:var(--gold)}.c-gold:hover{background:rgba(240,180,41,.2);border-color:var(--gold)}
 .c-teal{background:rgba(6,182,212,.1);border-color:rgba(6,182,212,.3);color:var(--teal)}.c-teal:hover{background:rgba(6,182,212,.2);border-color:var(--teal)}
 .c-green{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3);color:var(--green)}.c-green:hover{background:rgba(16,185,129,.2);border-color:var(--green)}
 .c-purple{background:rgba(139,92,246,.1);border-color:rgba(139,92,246,.3);color:var(--purple)}.c-purple:hover{background:rgba(139,92,246,.2);border-color:var(--purple)}
 .c-red{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.3);color:var(--red)}.c-red:hover{background:rgba(239,68,68,.2);border-color:var(--red)}
-.err{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#fca5a5;padding:9px 12px;border-radius:7px;font-size:.75rem;display:none}
+.err{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#fca5a5;padding:8px 11px;border-radius:7px;font-size:.72rem;display:none}
 .err.show{display:block}
+
+/* MAIN */
 .main{display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
-.out-header{display:none;align-items:center;justify-content:space-between;padding:10px 1.5rem;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0}
-.out-header.show{display:flex}
-.out-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:#fff}
-.out-title span{color:var(--gold)}
-.out-actions{display:flex;gap:6px}
-.abtn{padding:5px 12px;border-radius:6px;font-size:.72rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;display:flex;align-items:center;gap:5px}
+.top-bar{display:none;align-items:center;justify-content:space-between;padding:8px 1.5rem;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0;gap:10px}
+.top-bar.show{display:flex}
+.top-bar-left{display:flex;align-items:center;gap:10px;flex:1;overflow:hidden}
+.book-title{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.progress-badge{font-size:.65rem;font-weight:700;background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.3);color:var(--green);padding:2px 9px;border-radius:20px;white-space:nowrap}
+.top-bar-actions{display:flex;gap:5px;flex-shrink:0}
+.abtn{padding:5px 11px;border-radius:6px;font-size:.7rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;display:flex;align-items:center;gap:4px;white-space:nowrap}
 .abtn.ol{background:transparent;border:1px solid var(--border2);color:var(--text2)}.abtn.ol:hover{border-color:var(--teal);color:var(--teal)}
 .abtn.so{background:var(--gold);border:1px solid var(--gold);color:#0b0f1a;font-weight:800}.abtn.so:hover{background:var(--gold2)}
-.toc{display:none;padding:7px 1.5rem;background:var(--surface2);border-bottom:1px solid var(--border);flex-wrap:wrap;gap:5px;align-items:center;flex-shrink:0}
-.toc.show{display:flex}
-.toc-lbl{font-size:.6rem;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-right:4px}
-.toc-pill{padding:2px 9px;border-radius:20px;font-size:.63rem;font-weight:600;cursor:pointer;background:var(--surface3);border:1px solid var(--border);color:var(--text2);transition:all .15s;white-space:nowrap}
-.toc-pill:hover{background:var(--gold);border-color:var(--gold);color:#0b0f1a}
-.out-body{flex:1;overflow-y:auto;padding:2rem 2.5rem}
-.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:1.2rem;text-align:center;padding:2rem}
-.empty-orb{width:90px;height:90px;background:radial-gradient(circle at 35% 35%,rgba(240,180,41,.25),rgba(6,182,212,.1),transparent);border:1px solid var(--border2);border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:2.8rem}
-.empty-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:#fff;line-height:1.2}
-.empty-sub{font-size:.83rem;color:var(--text2);max-width:380px;line-height:1.7}
-.feat-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;max-width:420px;width:100%}
-.feat{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:11px 13px;text-align:left;display:flex;align-items:flex-start;gap:9px}
-.feat-i{font-size:1.1rem;flex-shrink:0;margin-top:2px}
-.feat-t{font-size:.76rem;font-weight:700;color:var(--text)}
-.feat-d{font-size:.66rem;color:var(--text3);margin-top:2px;line-height:1.4}
-.genstate{display:none;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:1.2rem;padding:2rem;text-align:center}
-.genstate.show{display:flex}
-.spinner{width:70px;height:70px;position:relative}
+.out-body{flex:1;overflow-y:auto;padding:1.5rem 2rem;scroll-behavior:smooth}
+
+/* EMPTY STATE */
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:1.1rem;text-align:center;padding:2rem}
+.empty-orb{width:85px;height:85px;background:radial-gradient(circle at 35% 35%,rgba(240,180,41,.25),rgba(6,182,212,.1),transparent);border:1px solid var(--border2);border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:2.5rem}
+.empty-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:#fff;line-height:1.2}
+.empty-sub{font-size:.82rem;color:var(--text2);max-width:420px;line-height:1.75}
+.how-steps{display:flex;flex-direction:column;gap:8px;max-width:380px;width:100%;margin-top:.3rem}
+.step{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:10px 13px;text-align:left;display:flex;align-items:center;gap:10px}
+.step-n{width:26px;height:26px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:900;color:#0b0f1a;flex-shrink:0}
+.step-t{font-size:.78rem;font-weight:600;color:#fff}
+.step-d{font-size:.67rem;color:var(--text3);margin-top:1px}
+
+/* GENERATING OVERLAY */
+.gen-overlay{display:none;flex-direction:column;align-items:center;justify-content:center;padding:3rem 2rem;text-align:center;gap:1rem}
+.gen-overlay.show{display:flex}
+.spinner{width:65px;height:65px;position:relative;flex-shrink:0}
 .sring{position:absolute;inset:0;border-radius:50%;border:2.5px solid transparent}
 .sring:nth-child(1){border-top-color:var(--gold);animation:spin 1.2s linear infinite}
 .sring:nth-child(2){inset:10px;border-right-color:var(--teal);animation:spin .85s linear infinite reverse}
 .sring:nth-child(3){inset:22px;border-bottom-color:var(--purple);animation:spin 1.6s linear infinite}
-.score{position:absolute;inset:32px;background:var(--surface);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem}
+.score{position:absolute;inset:30px;background:var(--surface);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem}
 @keyframes spin{to{transform:rotate(360deg)}}
-.gen-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#fff}
-.gen-sub{font-size:.76rem;color:var(--text2)}
-.gen-log{width:100%;max-width:520px;background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:12px;font-family:'DM Mono',monospace;font-size:.65rem;color:#6ee7b7;max-height:160px;overflow-y:auto;text-align:left;line-height:1.8;white-space:pre-wrap;word-break:break-word}
-.md{max-width:800px}
-.md h1{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:900;color:var(--gold);border-bottom:2px solid var(--gold);padding-bottom:.4rem;margin:2rem 0 .9rem;scroll-margin-top:80px}
-.md h1:first-child{margin-top:0}
-.md h2{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--teal);margin:1.8rem 0 .7rem;display:flex;align-items:center;gap:7px;scroll-margin-top:80px}
-.md h2::before{content:'';display:block;width:3px;height:1em;background:var(--gold);border-radius:2px;flex-shrink:0}
-.md h3{font-size:.8rem;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin:1.2rem 0 .4rem}
-.md p{margin:.5rem 0;color:#cbd5e1;font-size:.88rem;line-height:1.8}
-.md strong{color:#fff;font-weight:700}
-.md em{color:var(--gold)}
-.md ul,.md ol{padding-left:1.4rem;margin:.4rem 0}
-.md li{margin:.28rem 0;color:#cbd5e1;font-size:.86rem;line-height:1.7}
-.md hr{border:none;border-top:1px solid var(--border2);margin:2rem 0}
-.md code{background:var(--surface2);border:1px solid var(--border);color:var(--teal);padding:2px 5px;border-radius:4px;font-family:'DM Mono',monospace;font-size:.78em}
-.md pre{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:1.1rem;overflow-x:auto;margin:.9rem 0}
-.md pre code{background:none;border:none;padding:0;color:#6ee7b7;font-size:.76rem}
-.md table{width:100%;border-collapse:collapse;margin:.9rem 0;font-size:.82rem}
-.md th{background:var(--surface2);color:var(--text);padding:9px 13px;text-align:left;font-size:.73rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;border:1px solid var(--border)}
-.md td{padding:8px 13px;border:1px solid var(--border);color:#cbd5e1;vertical-align:top}
-.md tr:nth-child(even) td{background:rgba(255,255,255,.02)}
-.fc{background:linear-gradient(135deg,var(--surface2),var(--surface3));border:1px solid rgba(240,180,41,.2);border-left:3px solid var(--gold);border-radius:9px;padding:11px 15px;margin:5px 0}
-.fc-q{font-weight:700;color:#fff;font-size:.86rem}
-.fc-a{color:var(--teal);font-size:.83rem;margin-top:7px;padding-top:7px;border-top:1px dashed var(--border2)}
-.mermaid{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:1.2rem;margin:.9rem 0;overflow-x:auto;text-align:center}
+.gen-label{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#fff}
+.gen-sub{font-size:.75rem;color:var(--text2)}
+.gen-prog-wrap{width:100%;max-width:400px}
+.gen-prog-info{display:flex;justify-content:space-between;font-size:.68rem;margin-bottom:5px;color:var(--text2)}
+.gen-prog-track{height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.gen-prog-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:3px;transition:width .5s;width:0}
+.gen-log{width:100%;max-width:460px;background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:10px 12px;font-family:'DM Mono',monospace;font-size:.62rem;color:#6ee7b7;max-height:130px;overflow-y:auto;text-align:left;line-height:1.8;white-space:pre-wrap;word-break:break-word}
+
+/* BOOK OUTPUT */
+.book-output{max-width:820px}
+
+/* TOPIC BLOCK */
+.topic-block{margin-bottom:2.5rem;border:1px solid var(--border2);border-radius:13px;overflow:hidden;scroll-margin-top:20px}
+.topic-block-header{background:var(--surface);padding:1rem 1.4rem;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .2s;user-select:none}
+.topic-block-header:hover{background:var(--surface2)}
+.tbh-num{font-size:.65rem;font-family:'DM Mono',monospace;font-weight:700;color:var(--gold);background:rgba(240,180,41,.12);padding:3px 8px;border-radius:5px;flex-shrink:0}
+.tbh-title{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:#fff;flex:1}
+.tbh-badge{font-size:.6rem;padding:2px 8px;border-radius:20px;font-weight:700;flex-shrink:0}
+.tbh-badge.done{background:rgba(16,185,129,.15);border:1px solid rgba(16,185,129,.3);color:var(--green)}
+.tbh-badge.processing{background:rgba(6,182,212,.15);border:1px solid rgba(6,182,212,.3);color:var(--teal)}
+.tbh-badge.pending{background:rgba(100,116,139,.1);border:1px solid rgba(100,116,139,.2);color:var(--text3)}
+.tbh-toggle{color:var(--text3);transition:transform .2s;font-size:.9rem}
+.topic-block.collapsed .tbh-toggle{transform:rotate(-90deg)}
+.topic-block-body{padding:1.4rem;background:var(--bg);border-top:1px solid var(--border)}
+.topic-block.collapsed .topic-block-body{display:none}
+.topic-placeholder{display:flex;align-items:center;gap:10px;padding:1.5rem;color:var(--text3);font-size:.82rem}
+.topic-spinner{width:20px;height:20px;border:2px solid var(--border2);border-top-color:var(--teal);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0}
+
+/* MARKDOWN inside topic */
+.md-inner h1{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:var(--gold);border-bottom:1px solid rgba(240,180,41,.3);padding-bottom:.3rem;margin:1.5rem 0 .7rem}
+.md-inner h1:first-child{margin-top:0}
+.md-inner h2{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--teal);margin:1.3rem 0 .5rem;display:flex;align-items:center;gap:6px}
+.md-inner h2::before{content:'';display:block;width:3px;height:.9em;background:var(--gold);border-radius:2px;flex-shrink:0}
+.md-inner h3{font-size:.75rem;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin:1rem 0 .3rem}
+.md-inner p{margin:.4rem 0;color:#cbd5e1;font-size:.85rem;line-height:1.8}
+.md-inner strong{color:#fff;font-weight:700}
+.md-inner em{color:var(--gold)}
+.md-inner ul,.md-inner ol{padding-left:1.3rem;margin:.3rem 0}
+.md-inner li{margin:.22rem 0;color:#cbd5e1;font-size:.84rem;line-height:1.7}
+.md-inner hr{border:none;border-top:1px solid var(--border2);margin:1.5rem 0}
+.md-inner table{width:100%;border-collapse:collapse;margin:.8rem 0;font-size:.8rem}
+.md-inner th{background:var(--surface2);color:var(--text);padding:8px 12px;text-align:left;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;border:1px solid var(--border)}
+.md-inner td{padding:7px 12px;border:1px solid var(--border);color:#cbd5e1;vertical-align:top}
+.md-inner tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.fc{background:linear-gradient(135deg,var(--surface2),var(--surface3));border:1px solid rgba(240,180,41,.2);border-left:3px solid var(--gold);border-radius:8px;padding:10px 13px;margin:4px 0}
+.fc-q{font-weight:700;color:#fff;font-size:.83rem}
+.fc-a{color:var(--teal);font-size:.8rem;margin-top:6px;padding-top:6px;border-top:1px dashed var(--border2)}
+.mermaid{background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:1rem;margin:.8rem 0;overflow-x:auto;text-align:center}
+
+/* TOPIC ACTIONS */
+.topic-actions{display:flex;gap:6px;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);flex-wrap:wrap}
+.tact-btn{padding:5px 12px;border-radius:6px;font-size:.7rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;border:1px solid var(--border2);background:transparent;color:var(--text2)}
+.tact-btn:hover{border-color:var(--gold);color:var(--gold)}
+
+/* QUIZ OVERLAY */
 #quizOverlay{position:fixed;inset:0;background:rgba(11,15,26,.97);z-index:1000;display:none;flex-direction:column;align-items:center;justify-content:center;padding:2rem;backdrop-filter:blur(8px)}
 .quiz-card{background:var(--surface);border:2px solid var(--gold);padding:2.5rem;border-radius:16px;width:100%;max-width:580px;text-align:center;box-shadow:0 0 60px rgba(240,180,41,.15)}
 .quiz-num{font-size:.7rem;color:var(--text3);margin-bottom:.8rem;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.5px}
-.quiz-q{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:#fff;line-height:1.4;min-height:60px}
-.quiz-a{display:none;margin-top:1.2rem;padding:1rem;background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.3);border-radius:9px;color:var(--teal);font-size:.95rem;font-weight:600}
+.quiz-topic{font-size:.7rem;color:var(--gold);margin-bottom:.5rem;font-weight:600}
+.quiz-q{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:#fff;line-height:1.4;min-height:60px}
+.quiz-a{display:none;margin-top:1.2rem;padding:1rem;background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.3);border-radius:9px;color:var(--teal);font-size:.92rem;font-weight:600}
 .quiz-btns{margin-top:1.5rem;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
-.qbtn{padding:9px 20px;border-radius:7px;font-size:.8rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;border:1px solid;transition:all .2s}
+.qbtn{padding:8px 18px;border-radius:7px;font-size:.78rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;border:1px solid;transition:all .2s}
 .qbtn.show-ans{background:transparent;border-color:var(--teal);color:var(--teal)}
 .qbtn.next{background:var(--gold);border-color:var(--gold);color:#0b0f1a}
 .qbtn.exit{background:transparent;border-color:var(--border2);color:var(--text3)}
 .quiz-prog{width:100%;height:4px;background:var(--border);border-radius:2px;margin-top:1.5rem;overflow:hidden}
 .quiz-prog-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .3s}
+
+/* MODAL */
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
 .modal-bg.show{display:flex}
 .modal{background:var(--surface);border:1px solid var(--border2);border-radius:13px;padding:1.75rem;width:400px;max-width:95vw}
@@ -135,9 +184,10 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:0
 .mbtn{padding:8px 18px;border-radius:7px;font-size:.78rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
 .mbtn.cancel{background:var(--surface2);border:1px solid var(--border2);color:var(--text2)}
 .mbtn.save{background:var(--gold);border:1px solid var(--gold);color:#0b0f1a}
+
 .toast{position:fixed;bottom:18px;right:18px;background:var(--surface);border:1px solid var(--border2);border-left:3px solid var(--gold);color:var(--text);padding:10px 18px;border-radius:8px;font-size:.78rem;font-weight:500;z-index:999;transform:translateY(50px);opacity:0;transition:all .3s;box-shadow:0 8px 30px rgba(0,0,0,.4);max-width:300px}
 .toast.show{transform:translateY(0);opacity:1}
-@media print{header,.sidebar,.out-header,.toc{display:none!important}.app{display:block}.main{height:auto;overflow:visible}.out-body{padding:1rem}}
+@media print{header,.sidebar,.top-bar{display:none!important}.app{display:block}.main{height:auto;overflow:visible}.out-body{padding:1rem}.topic-block.collapsed .topic-block-body{display:block!important}}
 </style>
 </head>
 <body>
@@ -151,69 +201,91 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:0
     <button class="hbtn" onclick="openModal()">⚙️ Groq API Key (Free)</button>
   </div>
 </header>
+
 <div class="app">
+  <!-- SIDEBAR -->
   <aside class="sidebar">
     <div class="spanel">
       <div class="upzone" id="upzone">
         <input type="file" id="fileInput" accept=".pdf" />
-        <span style="font-size:1.8rem;display:block;margin-bottom:6px">📄</span>
-        <div style="font-weight:700;font-size:.88rem">Upload PDF</div>
-        <div style="font-size:.7rem;color:var(--text3);margin-top:3px">Lecture notes, slides, handwritten scans</div>
-        <div id="fileName" style="font-size:.68rem;color:var(--gold);margin-top:5px;font-family:'DM Mono',monospace;word-break:break-all"></div>
+        <span style="font-size:1.6rem;display:block;margin-bottom:5px">📄</span>
+        <div style="font-weight:700;font-size:.85rem">Upload PDF / Textbook</div>
+        <div style="font-size:.68rem;color:var(--text3);margin-top:3px">Any size — lecture notes, slides, books</div>
+        <div id="fileName" style="font-size:.65rem;color:var(--gold);margin-top:5px;font-family:'DM Mono',monospace;word-break:break-all"></div>
       </div>
       <div class="prog-wrap" id="progWrap">
         <div class="prog-label"><span id="progLabel">Reading…</span><span class="prog-pct" id="progPct">0%</span></div>
         <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
       </div>
-      <button class="btn-gen" id="btnGen" disabled onclick="generate()">🚀 Build Full Study Toolkit</button>
-      <div class="divider">Topic Tools — No PDF Needed</div>
-      <textarea class="topic-area" id="topicInput" placeholder="e.g. Iron Metabolism, Krebs Cycle, Cardiac Action Potential…"></textarea>
+      <button class="btn-gen" id="btnStart" disabled onclick="startProcessing()">🚀 Read & Study Whole Book</button>
+
+      <!-- Topic Nav — populated after processing starts -->
+      <div id="topicNavWrap" style="display:none">
+        <div class="divider">Topics</div>
+        <div class="topic-nav" id="topicNav"></div>
+      </div>
+
+      <div class="divider">Quick Topic Tools</div>
+      <textarea class="topic-area" id="topicInput" placeholder="Type any topic…"></textarea>
       <div class="tools-grid">
         <button class="tbtn c-gold" onclick="runTool('summary')"><span class="ico">📋</span>Summary</button>
-        <button class="tbtn c-teal" onclick="runTool('layman')"><span class="ico">🧒</span>Layman ELI5</button>
+        <button class="tbtn c-teal" onclick="runTool('layman')"><span class="ico">🧒</span>ELI5</button>
         <button class="tbtn c-green" onclick="runTool('flashcards')"><span class="ico">🃏</span>Flashcards</button>
         <button class="tbtn c-purple" onclick="runTool('mnemonics')"><span class="ico">🧠</span>Mnemonics</button>
         <button class="tbtn c-red" onclick="runTool('highyield')"><span class="ico">⚡</span>High-Yield</button>
         <button class="tbtn c-teal" onclick="runTool('exam')"><span class="ico">🎯</span>Exam Qs</button>
-        <button class="tbtn c-gold wide" onclick="runTool('anki')"><span class="ico">📤</span>Anki Deck Generator</button>
+        <button class="tbtn c-gold wide" onclick="runTool('anki')"><span class="ico">📤</span>Generate Anki Deck</button>
       </div>
       <div class="err" id="errBox"></div>
     </div>
   </aside>
+
+  <!-- MAIN -->
   <main class="main">
-    <div class="out-header" id="outHeader">
-      <div class="out-title" id="outTitle">📘 <span>Study Toolkit</span></div>
-      <div class="out-actions">
-        <button class="abtn ol" onclick="startQuiz()">🎯 Quiz</button>
-        <button class="abtn ol" onclick="exportAnki()">📤 Anki CSV</button>
+    <div class="top-bar" id="topBar">
+      <div class="top-bar-left">
+        <div class="book-title" id="bookTitle">📚 Book Study</div>
+        <div class="progress-badge" id="progressBadge">0 / 0 topics</div>
+      </div>
+      <div class="top-bar-actions">
+        <button class="abtn ol" onclick="startQuizAll()">🎯 Quiz All</button>
+        <button class="abtn ol" onclick="exportAllAnki()">📤 Anki CSV</button>
         <button class="abtn ol" onclick="window.print()">🖨️ Print</button>
-        <button class="abtn so" onclick="downloadMd()">⬇️ Save</button>
       </div>
     </div>
-    <div class="toc" id="toc"><span class="toc-lbl">Jump:</span></div>
+
     <div class="out-body" id="outBody">
+      <!-- EMPTY -->
       <div class="empty" id="emptyState">
         <div class="empty-orb">📚</div>
-        <div class="empty-title">MartinBrain Pro<br>Study Architect</div>
-        <div class="empty-sub">Upload a PDF or type any topic. Get summaries, flashcards, mnemonics, Anki decks and exam questions — powered by Groq AI (free, fast, no credit card).</div>
-        <div class="feat-grid">
-          <div class="feat"><div class="feat-i">📋</div><div><div class="feat-t">Smart Summary + ELI5</div><div class="feat-d">Executive overview & simple analogies</div></div></div>
-          <div class="feat"><div class="feat-i">🃏</div><div><div class="feat-t">Anki Flashcards</div><div class="feat-d">Export-ready Q&A deck</div></div></div>
-          <div class="feat"><div class="feat-i">🧠</div><div><div class="feat-t">Mnemonics</div><div class="feat-d">Acronyms, stories & memory hooks</div></div></div>
-          <div class="feat"><div class="feat-i">🎯</div><div><div class="feat-t">Exam Mode</div><div class="feat-d">MCQs, short answers, high-yield points</div></div></div>
+        <div class="empty-title">Study Smarter,<br>Not Harder</div>
+        <div class="empty-sub">Upload any PDF — textbook, lecture notes, slides. MartinBrain reads the <strong>whole book</strong>, splits it into topics and generates a <strong>complete study toolkit for each one</strong> automatically.</div>
+        <div class="how-steps">
+          <div class="step"><div class="step-n">1</div><div><div class="step-t">Upload your PDF</div><div class="step-d">Any size — whole textbooks work</div></div></div>
+          <div class="step"><div class="step-n">2</div><div><div class="step-t">Click Read & Study Whole Book</div><div class="step-d">AI reads and splits into topics automatically</div></div></div>
+          <div class="step"><div class="step-n">3</div><div><div class="step-t">Study topic by topic</div><div class="step-d">Each gets summary, flashcards, mnemonics & exam Qs</div></div></div>
         </div>
       </div>
-      <div class="genstate" id="genState">
+
+      <!-- GENERATING -->
+      <div class="gen-overlay" id="genOverlay">
         <div class="spinner"><div class="sring"></div><div class="sring"></div><div class="sring"></div><div class="score">🧠</div></div>
-        <div class="gen-title" id="genTitle">Building your toolkit…</div>
-        <div class="gen-sub" id="genSub">Applying AI pedagogy protocols</div>
+        <div class="gen-label" id="genLabel">Analyzing book structure…</div>
+        <div class="gen-sub" id="genSub">Please wait</div>
+        <div class="gen-prog-wrap">
+          <div class="gen-prog-info"><span id="genProgText">Starting…</span><span id="genProgPct">0%</span></div>
+          <div class="gen-prog-track"><div class="gen-prog-fill" id="genProgFill"></div></div>
+        </div>
         <div class="gen-log" id="genLog">Initializing…</div>
       </div>
-      <div class="md" id="mdBody" style="display:none"></div>
+
+      <!-- BOOK OUTPUT — topics rendered here one by one -->
+      <div class="book-output" id="bookOutput" style="display:none"></div>
     </div>
   </main>
 </div>
 
+<!-- MODAL -->
 <div class="modal-bg" id="modalBg" onclick="closeModalOutside(event)">
   <div class="modal">
     <h3>⚙️ Groq API Key</h3>
@@ -222,7 +294,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:0
       1. Go to <strong>console.groq.com</strong><br>
       2. Sign up with Google or email<br>
       3. Click <strong>API Keys → Create API Key</strong><br>
-      4. Copy key (starts with <code>gsk_</code>) and paste below
+      4. Copy the key (starts with <code>gsk_</code>) and paste below
     </div>
     <label>Your Groq API Key</label>
     <input type="password" id="keyInput" placeholder="gsk_…" />
@@ -233,8 +305,10 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:0
   </div>
 </div>
 
+<!-- QUIZ -->
 <div id="quizOverlay">
   <div class="quiz-card">
+    <div class="quiz-topic" id="quizTopic"></div>
     <div class="quiz-num" id="quizNum">Card 1 of 20</div>
     <div class="quiz-q" id="quizQ"></div>
     <div class="quiz-a" id="quizA"></div>
@@ -252,201 +326,416 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:0
 <script>
 pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/'+pdfjsLib.version+'/pdf.worker.min.js';
 mermaid.initialize({startOnLoad:false,theme:'dark',securityLevel:'loose'});
+
 let GROQ_KEY=localStorage.getItem('mb_groq_key')||'';
-let extractedText='',quizCards=[],quizIdx=0,lastMd='';
+let allPages=[];
+let allTopics=[];       // [{title, text}]
+let allCards=[];        // all flashcards across entire book
+let quizCards=[],quizIdx=0;
+let isProcessing=false;
+
+// ── KEY ──
 function openModal(){document.getElementById('keyInput').value=GROQ_KEY;document.getElementById('modalBg').classList.add('show')}
 function closeModal(){document.getElementById('modalBg').classList.remove('show')}
 function closeModalOutside(e){if(e.target.id==='modalBg')closeModal()}
-function saveKey(){GROQ_KEY=document.getElementById('keyInput').value.trim();localStorage.setItem('mb_groq_key',GROQ_KEY);closeModal();updateStatus();toast('✅ Key saved! You are ready to go.')}
+function saveKey(){GROQ_KEY=document.getElementById('keyInput').value.trim();localStorage.setItem('mb_groq_key',GROQ_KEY);closeModal();updateStatus();toast('✅ Key saved!')}
 function updateStatus(){const el=document.getElementById('apiStatus');el.textContent=GROQ_KEY?'🟢 Key active':'🔴 No key set';el.style.color=GROQ_KEY?'var(--green)':'var(--red)'}
 updateStatus();
 if(!GROQ_KEY)setTimeout(()=>toast('👋 Click ⚙️ Groq API Key to get started — it\'s free!',5000),1000);
+
 function toast(m,dur=3500){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),dur)}
 function showErr(m){const e=document.getElementById('errBox');e.textContent='⚠️ '+m;e.classList.add('show')}
 function clearErr(){document.getElementById('errBox').classList.remove('show')}
+
+// ── PDF UPLOAD ──
 const upzone=document.getElementById('upzone');
 upzone.addEventListener('dragover',e=>{e.preventDefault();upzone.style.borderColor='var(--gold)'});
 upzone.addEventListener('dragleave',()=>upzone.style.borderColor='');
 upzone.addEventListener('drop',e=>{e.preventDefault();upzone.style.borderColor='';if(e.dataTransfer.files[0])handleFile(e.dataTransfer.files[0])});
 document.getElementById('fileInput').addEventListener('change',e=>{if(e.target.files[0])handleFile(e.target.files[0])});
+
 async function handleFile(file){
   if(!file.name.toLowerCase().endsWith('.pdf')){showErr('Only PDF files accepted.');return}
-  clearErr();
+  clearErr();allPages=[];
   document.getElementById('fileName').textContent=file.name;
   document.getElementById('progWrap').classList.add('show');
-  document.getElementById('btnGen').disabled=true;
+  document.getElementById('btnStart').disabled=true;
   try{
     const buf=await file.arrayBuffer();
     const pdf=await pdfjsLib.getDocument({data:buf}).promise;
-    let text='';
     for(let i=1;i<=pdf.numPages;i++){
       const page=await pdf.getPage(i);
       const tc=await page.getTextContent();
-      text+=tc.items.map(x=>x.str).join(' ')+' ';
+      allPages.push(tc.items.map(x=>x.str).join(' '));
       const pct=Math.round((i/pdf.numPages)*100);
       document.getElementById('progFill').style.width=pct+'%';
       document.getElementById('progPct').textContent=pct+'%';
       document.getElementById('progLabel').textContent='Reading page '+i+'/'+pdf.numPages+'…';
     }
-    extractedText=text.trim().substring(0,18000);
-    document.getElementById('progLabel').textContent='✅ Ready!';
+    document.getElementById('progLabel').textContent='✅ '+pdf.numPages+' pages ready!';
     document.getElementById('progPct').style.color='var(--green)';
-    document.getElementById('btnGen').disabled=false;
-    toast('✅ PDF extracted! Click Build Study Toolkit.');
+    document.getElementById('btnStart').disabled=false;
+    // set book title
+    document.getElementById('bookTitle').textContent='📚 '+file.name.replace('.pdf','');
+    toast('✅ PDF loaded! Click Read & Study Whole Book.');
   }catch(e){showErr('Could not read PDF: '+e.message);document.getElementById('progWrap').classList.remove('show')}
 }
-const SYSTEM='You are MartinBrain AI Study Architect — an elite academic AI. Output ONLY clean structured Markdown. Academic teaching tone. Short sections. Bullet-point focused. No preamble or commentary.';
-async function callGroq(systemMsg,userMsg,title,subtitle){
-  if(!GROQ_KEY){openModal();toast('⚠️ Please enter your Groq API key first.',4000);return}
-  quizCards=[];
-  document.getElementById('emptyState').style.display='none';
-  document.getElementById('mdBody').style.display='none';
-  document.getElementById('genState').classList.add('show');
-  document.getElementById('outHeader').classList.remove('show');
-  document.getElementById('toc').classList.remove('show');
-  document.getElementById('genTitle').textContent=title;
-  document.getElementById('genSub').textContent=subtitle;
-  const log=document.getElementById('genLog');log.textContent='';
-  const addLog=m=>{log.textContent+=m+'\n';log.scrollTop=log.scrollHeight};
-  addLog('→ Connecting to Groq AI…');addLog('→ Model: llama-3.3-70b-versatile');addLog('→ Sending request…');
-  try{
-    const resp=await fetch('https://api.groq.com/openai/v1/chat/completions',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_KEY},
-      body:JSON.stringify({model:'llama-3.3-70b-versatile',messages:[{role:'system',content:systemMsg},{role:'user',content:userMsg}],temperature:0.7,max_tokens:6000})
-    });
-    if(!resp.ok){const err=await resp.json().catch(()=>({}));throw new Error(err.error?.message||'Error '+resp.status)}
-    const data=await resp.json();
-    const md=data.choices?.[0]?.message?.content||'';
-    if(!md||md.length<50)throw new Error('Empty response from AI');
-    addLog('✅ Response received — '+md.length+' chars');
-    lastMd=md;
-    await new Promise(r=>setTimeout(r,400));
-    renderOutput(md,title);
-  }catch(err){
-    document.getElementById('genState').classList.remove('show');
-    document.getElementById('emptyState').style.display='flex';
-    showErr(err.message);toast('❌ '+err.message,5000);
+
+// ── SMART CHUNKER ──
+// Splits pages into topic-sized chunks (~8-15 pages each, max 10000 chars)
+function chunkPages(pages){
+  const chunks=[];
+  const CHUNK_SIZE=10; // pages per chunk
+  for(let i=0;i<pages.length;i+=CHUNK_SIZE){
+    const chunkPages=pages.slice(i,i+CHUNK_SIZE);
+    const text=chunkPages.join('\n').trim();
+    if(text.length>100) chunks.push({pages:`${i+1}–${Math.min(i+CHUNK_SIZE,pages.length)}`,text:text.substring(0,9000)});
   }
+  return chunks;
 }
-async function generate(){
+
+// ── GROQ CALL ──
+const SYSTEM='You are MartinBrain AI Study Architect — an elite medical/academic AI. Output ONLY clean structured Markdown. Teaching tone: clear, precise, student-friendly. No preamble.';
+
+async function groq(userMsg,maxTokens=4000){
+  const resp=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_KEY},
+    body:JSON.stringify({model:'llama-3.3-70b-versatile',messages:[{role:'system',content:SYSTEM},{role:'user',content:userMsg}],temperature:0.6,max_tokens:maxTokens})
+  });
+  if(!resp.ok){const e=await resp.json().catch(()=>({}));throw new Error(e.error?.message||'Groq error '+resp.status)}
+  const data=await resp.json();
+  return data.choices?.[0]?.message?.content||'';
+}
+
+// ── MAIN PROCESSING ──
+async function startProcessing(){
+  if(!GROQ_KEY){openModal();toast('⚠️ Enter your Groq API key first.',4000);return}
+  if(allPages.length===0){showErr('Upload a PDF first.');return}
+  if(isProcessing)return;
+  isProcessing=true;
   clearErr();
-  if(!extractedText){showErr('No PDF content extracted yet.');return}
-  const prompt=`Analyze the following study text and generate a COMPLETE study toolkit in Markdown with EXACTLY these sections:
+  allCards=[];
+  allTopics=[];
 
-# 📋 Executive Summary
-10 high-yield bullet points covering the core concepts.
+  document.getElementById('emptyState').style.display='none';
+  document.getElementById('bookOutput').style.display='block';
+  document.getElementById('bookOutput').innerHTML='';
+  document.getElementById('genOverlay').classList.add('show');
+  document.getElementById('topBar').classList.add('show');
+  document.getElementById('topicNavWrap').style.display='block';
+  document.getElementById('topicNav').innerHTML='';
+  document.getElementById('btnStart').disabled=true;
 
-# 🧒 Layman Explanation (ELI5)
-Explain the main topic as if talking to a 10-year-old. Use simple language and real-world analogies.
+  const log=document.getElementById('genLog');
+  log.textContent='';
+  const addLog=m=>{log.textContent+=m+'\n';log.scrollTop=log.scrollHeight};
 
-# 📖 Structured Study Notes
-Organized with ## subheadings. Bold all key terms. Include definitions and mechanisms.
+  const chunks=chunkPages(allPages);
+  addLog('→ Book split into '+chunks.length+' topic sections');
+  addLog('→ Processing each section with Groq AI…\n');
 
-# 🃏 Active Recall Flashcards
-Generate 20 flashcards. Format EACH on its own line:
-**Q:** [question] **A:** [answer]
+  // STEP 1: Get topic titles for all chunks at once
+  addLog('→ Identifying topic titles…');
+  const titlesPrompt=`For each section of this academic document, give it a clear descriptive topic title.
+Return ONLY a JSON array of strings, one title per section, in order. No markdown, no explanation.
+Example: ["Iron Absorption","Haemoglobin Synthesis","Iron Deficiency Anaemia"]
 
-# 🧠 Mnemonics & Memory Aids
-Acronym mnemonics, rhymes, or stories for key lists and sequences.
+There are ${chunks.length} sections. Provide exactly ${chunks.length} titles.
 
-# 🗺️ Concept Map
-\`\`\`mermaid
-graph TD
-  A[Main Topic] --> B[Subtopic 1]
-\`\`\`
+Section previews:
+${chunks.map((c,i)=>`Section ${i+1}: ${c.text.substring(0,300)}`).join('\n\n')}`;
+
+  let topicTitles=[];
+  try{
+    const raw=await groq(titlesPrompt,1000);
+    const clean=raw.replace(/```json|```/g,'').trim();
+    topicTitles=JSON.parse(clean);
+    if(!Array.isArray(topicTitles))throw new Error('bad format');
+    while(topicTitles.length<chunks.length)topicTitles.push('Topic '+(topicTitles.length+1));
+    addLog('✅ Topics identified: '+topicTitles.join(', '));
+  }catch(e){
+    topicTitles=chunks.map((_,i)=>'Topic '+(i+1));
+    addLog('⚠️ Using default titles');
+  }
+
+  // Build sidebar nav and topic blocks upfront
+  chunks.forEach((chunk,i)=>{
+    const title=topicTitles[i]||'Topic '+(i+1);
+    allTopics.push({title,text:chunk.text,pages:chunk.pages});
+
+    // Sidebar nav item
+    const nav=document.createElement('div');
+    nav.className='tnav-item pending';
+    nav.id='nav-'+i;
+    nav.innerHTML=`<div class="tnav-num">${String(i+1).padStart(2,'0')}</div><div class="tnav-title">${title}</div><div class="tnav-status" id="navst-${i}">⏳</div>`;
+    nav.onclick=()=>document.getElementById('topic-'+i)?.scrollIntoView({behavior:'smooth',block:'start'});
+    document.getElementById('topicNav').appendChild(nav);
+
+    // Topic block in main
+    const block=document.createElement('div');
+    block.className='topic-block';
+    block.id='topic-'+i;
+    block.innerHTML=`
+      <div class="topic-block-header" onclick="toggleBlock(${i})">
+        <div class="tbh-num">Pages ${chunk.pages}</div>
+        <div class="tbh-title">${title}</div>
+        <div class="tbh-badge pending" id="badge-${i}">⏳ Pending</div>
+        <div class="tbh-toggle">▼</div>
+      </div>
+      <div class="topic-block-body">
+        <div class="topic-placeholder" id="ph-${i}">
+          <div class="topic-spinner"></div>
+          <span>Waiting to process…</span>
+        </div>
+        <div class="md-inner" id="md-${i}" style="display:none"></div>
+        <div class="topic-actions" id="ta-${i}" style="display:none">
+          <button class="tact-btn" onclick="quizTopic(${i})">🎯 Quiz this topic</button>
+          <button class="tact-btn" onclick="exportTopicAnki(${i})">📤 Anki CSV</button>
+        </div>
+      </div>`;
+    document.getElementById('bookOutput').appendChild(block);
+  });
+
+  document.getElementById('progressBadge').textContent='0 / '+chunks.length+' topics';
+
+  // STEP 2: Process each chunk sequentially
+  document.getElementById('genOverlay').classList.remove('show');
+
+  for(let i=0;i<chunks.length;i++){
+    const title=allTopics[i].title;
+    const text=allTopics[i].text;
+
+    // Update status
+    document.getElementById('nav-'+i).className='tnav-item processing';
+    document.getElementById('navst-'+i).textContent='⚙️';
+    document.getElementById('badge-'+i).textContent='⚙️ Processing';
+    document.getElementById('badge-'+i).className='tbh-badge processing';
+    document.getElementById('ph-'+i).innerHTML='<div class="topic-spinner"></div><span>AI is studying this topic…</span>';
+
+    // Scroll nav item into view
+    document.getElementById('nav-'+i).scrollIntoView({behavior:'smooth',block:'nearest'});
+
+    try{
+      const prompt=`You are teaching the topic: "${title}" from a study document.
+
+Generate a focused, easy-to-understand study toolkit in Markdown. Write as a great teacher — clear, simple, memorable. Avoid jargon without explanation.
+
+# 📋 Summary: ${title}
+6-8 bullet points. What are the key things a student MUST know about this topic?
+
+# 🧒 Simple Explanation
+Explain this topic simply — use a real-world analogy that makes it click. 2-3 short paragraphs.
+
+# 📖 Study Notes
+Organized with ## subheadings. **Bold** all key terms with their definitions. Cover mechanisms, processes, clinical relevance. Be thorough but concise.
+
+# 🃏 Flashcards (15 cards)
+Format each card on its own line:
+**Q:** [focused question] **A:** [clear concise answer]
+
+# 🧠 Mnemonics
+1-2 acronym mnemonics or memory hooks for the most important lists in this topic.
 
 # ⚡ High-Yield Exam Points
-Top 15 exam-critical bullet points.
+Top 8 most-tested facts about "${title}". Be very specific.
 
-# 🎯 Exam Questions
-5 MCQs with 4 options, mark correct with ✅. Then 3 short answer questions with model answers.
+# 🎯 Practice Questions
+3 MCQs (4 options each, mark correct with ✅). 2 short answer questions with model answers.
 
-# 📤 Anki Export Table
-| Question | Answer |
-|---|---|
-[All 20 flashcards here]
+DOCUMENT TEXT (Pages ${allTopics[i].pages}):
+${text}`;
 
-TEXT:
-${extractedText}`;
-  await callGroq(SYSTEM,prompt,'📄 Full Study Toolkit','Analyzing PDF — building complete ecosystem…');
+      const md=await groq(prompt,4000);
+      if(!md||md.length<50)throw new Error('Empty response');
+
+      // Parse flashcards
+      const cards=[];
+      md.split('\n').forEach(line=>{
+        const m=line.match(/\*\*Q:\*\*\s*(.*?)\s*\*\*A:\*\*\s*(.*)/);
+        if(m)cards.push({q:m[1].replace(/<[^>]*>/g,'').trim(),a:m[2].replace(/<[^>]*>/g,'').trim(),topic:title});
+      });
+      allTopics[i].cards=cards;
+      allCards.push(...cards);
+
+      // Render
+      renderTopicBlock(i,md,cards);
+
+      // Update status
+      document.getElementById('nav-'+i).className='tnav-item done';
+      document.getElementById('navst-'+i).textContent='✅';
+      document.getElementById('badge-'+i).textContent='✅ Ready';
+      document.getElementById('badge-'+i).className='tbh-badge done';
+      document.getElementById('progressBadge').textContent=(i+1)+' / '+chunks.length+' topics';
+
+      // Collapse after first 2 to keep page manageable
+      if(i>1){
+        document.getElementById('topic-'+i).classList.add('collapsed');
+      }
+
+    }catch(e){
+      document.getElementById('ph-'+i).innerHTML='<span style="color:var(--red)">⚠️ Error: '+e.message+'</span>';
+      document.getElementById('nav-'+i).className='tnav-item done';
+      document.getElementById('navst-'+i).textContent='❌';
+      document.getElementById('badge-'+i).textContent='❌ Error';
+    }
+
+    // Small delay between requests to avoid rate limiting
+    if(i<chunks.length-1)await new Promise(r=>setTimeout(r,1200));
+  }
+
+  isProcessing=false;
+  document.getElementById('btnStart').disabled=false;
+  toast('🎉 All '+chunks.length+' topics processed! Scroll to study.',5000);
 }
-const TOOLS={
-  summary:t=>`Generate a comprehensive summary for: "${t}"\n\n# 📋 Executive Summary: ${t}\n10 high-yield bullet points.\n\n# 🧒 Layman Explanation (ELI5)\nSimple explanation with real-world analogies.\n\n# 📖 Key Concepts\n## subheadings, bold key terms, definitions.\n\n# ⚡ High-Yield Points\nTop 10 exam-critical facts about "${t}".`,
-  layman:t=>`Give a thorough layman's explanation of: "${t}"\n\n# 🧒 Layman's Guide: ${t}\n## What Is It?\nSimple 2-3 sentence explanation.\n## The Analogy\nOne vivid real-world analogy.\n## Step by Step\nWalk through the key process in plain language.\n## Why It Matters\nReal-world significance.\n## Common Misconceptions\n3 things people get wrong about "${t}".`,
-  flashcards:t=>`Generate a complete flashcard deck for: "${t}"\n\n# 🃏 Flashcard Deck: ${t}\n25 atomic flashcards. Format each on its own line:\n**Q:** [question] **A:** [answer]\n\n# 📤 Anki Export Table\n| Question | Answer |\n|---|---|\n[All 25 cards]`,
-  mnemonics:t=>`Create comprehensive memory aids for: "${t}"\n\n# 🧠 Mnemonics: ${t}\n## Acronym Mnemonics\nCreate acronyms for important lists in "${t}".\n## Story Method\nA short memorable narrative encoding key facts.\n## Visual Associations\nVivid mental images for important facts.\n## Quick Memory Hooks\n5 one-liner memory triggers for most-tested facts.`,
-  highyield:t=>`Generate high-yield exam points for: "${t}"\n\n# ⚡ High-Yield Exam Mastery: ${t}\n## Top 20 Must-Know Facts\nNumbered list — specific and precise.\n## Commonly Tested Areas\n8-10 areas that appear most in exams.\n## Tricky Points\n5-8 areas where students lose marks — with clarifications.\n## Key Numbers & Values\nSpecific numbers, thresholds, or values to memorize.\n## One-Line Definitions\nQuick definitions of all key terms.`,
-  exam:t=>`Generate a complete exam preparation set for: "${t}"\n\n# 🎯 Exam Prep: ${t}\n## MCQs (10 questions)\nEach with 4 options. Mark correct with ✅ and brief explanation.\n## Short Answer Questions (5)\nWith model answers.\n## Last-Minute Checklist\n10 must-know points before the exam.`,
-  anki:t=>`Generate a full Anki deck for: "${t}"\n\n# 📤 Anki Deck: ${t}\nFirst list all 35 cards:\n**Q:** [question] **A:** [answer]\n\n# 📊 Anki Import Table\n| Question | Answer |\n|---|---|\n[All 35 cards]`,
-};
-async function runTool(tool){
-  const topic=document.getElementById('topicInput').value.trim();
-  if(!topic){showErr('Please enter a topic first.');document.getElementById('topicInput').focus();return}
-  clearErr();
-  const titles={summary:'📋 Summary',layman:'🧒 Layman ELI5',flashcards:'🃏 Flashcards',mnemonics:'🧠 Mnemonics',highyield:'⚡ High-Yield',exam:'🎯 Exam Questions',anki:'📤 Anki Deck'};
-  const subs={summary:'Building summary…',layman:'Crafting simple analogies…',flashcards:'Generating recall flashcards…',mnemonics:'Creating memory aids…',highyield:'Extracting exam-critical points…',exam:'Building exam questions…',anki:'Building Anki deck…'};
-  await callGroq(SYSTEM,TOOLS[tool](topic),titles[tool]+': '+topic,subs[tool]);
-}
-async function renderOutput(md,title){
-  document.getElementById('genState').classList.remove('show');
-  const mdBody=document.getElementById('mdBody');
-  mdBody.innerHTML=marked.parse(md);
-  mdBody.style.display='block';
-  mdBody.querySelectorAll('p').forEach(p=>{
+
+function renderTopicBlock(i,md,cards){
+  const container=document.getElementById('md-'+i);
+  container.innerHTML=marked.parse(md);
+  container.style.display='block';
+  document.getElementById('ph-'+i).style.display='none';
+
+  // Style flashcards
+  container.querySelectorAll('p').forEach(p=>{
     const txt=p.innerHTML;
     if(txt.includes('<strong>Q:</strong>')&&txt.includes('<strong>A:</strong>')){
       const match=txt.match(/<strong>Q:<\/strong>\s*(.*?)\s*<strong>A:<\/strong>\s*(.*)/);
       if(match){
         const fc=document.createElement('div');fc.className='fc';
         fc.innerHTML='<div class="fc-q">❓ '+match[1].trim()+'</div><div class="fc-a">💡 '+match[2].trim()+'</div>';
-        quizCards.push({q:match[1].replace(/<[^>]*>/g,'').trim(),a:match[2].replace(/<[^>]*>/g,'').trim()});
         p.replaceWith(fc);
       }
     }
   });
+
+  // Mermaid
   try{
-    mdBody.querySelectorAll('pre code').forEach(cb=>{
+    container.querySelectorAll('pre code').forEach(cb=>{
       const txt=cb.textContent.trim();
       if(txt.startsWith('graph')||txt.startsWith('flowchart')){
         const div=document.createElement('div');div.className='mermaid';div.textContent=txt;
         cb.closest('pre').replaceWith(div);
       }
     });
-    await mermaid.run({nodes:mdBody.querySelectorAll('.mermaid')});
-  }catch(e){console.warn('Mermaid:',e)}
-  const toc=document.getElementById('toc');
-  toc.innerHTML='<span class="toc-lbl">Jump:</span>';
-  mdBody.querySelectorAll('h1').forEach(h=>{
-    const id='sec-'+Math.random().toString(36).slice(2,6);h.id=id;
-    const pill=document.createElement('button');pill.className='toc-pill';
-    pill.textContent=h.textContent.replace(/[^\w\s]/gu,'').trim().slice(0,20);
-    pill.onclick=()=>h.scrollIntoView({behavior:'smooth',block:'start'});
-    toc.appendChild(pill);
-  });
-  document.getElementById('outTitle').innerHTML='📘 <span>'+title+'</span>';
-  document.getElementById('outHeader').classList.add('show');
-  document.getElementById('toc').classList.add('show');
-  document.getElementById('outBody').scrollTop=0;
-  toast('✅ Study toolkit ready!',3500);
+    mermaid.run({nodes:container.querySelectorAll('.mermaid')});
+  }catch(e){}
+
+  if(cards.length>0)document.getElementById('ta-'+i).style.display='flex';
 }
-function startQuiz(){if(quizCards.length===0){toast('⚠️ Generate flashcards first!');return}quizIdx=0;document.getElementById('quizOverlay').style.display='flex';showCard()}
-function showCard(){document.getElementById('quizA').style.display='none';document.getElementById('quizQ').textContent=quizCards[quizIdx].q;document.getElementById('quizA').textContent=quizCards[quizIdx].a;document.getElementById('quizNum').textContent='Card '+(quizIdx+1)+' of '+quizCards.length;document.getElementById('quizProgFill').style.width=((quizIdx+1)/quizCards.length*100)+'%'}
+
+function toggleBlock(i){
+  document.getElementById('topic-'+i).classList.toggle('collapsed');
+}
+
+// ── PER-TOPIC QUIZ ──
+function quizTopic(i){
+  const cards=allTopics[i]?.cards||[];
+  if(cards.length===0){toast('No flashcards for this topic yet.');return}
+  startQuizWith(cards,allTopics[i].title);
+}
+
+// ── ALL TOPICS QUIZ ──
+function startQuizAll(){
+  if(allCards.length===0){toast('⚠️ Process the book first!');return}
+  startQuizWith(allCards,'All Topics');
+}
+
+function startQuizWith(cards,topicLabel){
+  quizCards=cards;quizIdx=0;
+  document.getElementById('quizTopic').textContent='📖 '+topicLabel;
+  document.getElementById('quizOverlay').style.display='flex';
+  showCard();
+}
+
+function showCard(){
+  document.getElementById('quizA').style.display='none';
+  document.getElementById('quizQ').textContent=quizCards[quizIdx].q;
+  document.getElementById('quizA').textContent=quizCards[quizIdx].a;
+  document.getElementById('quizNum').textContent='Card '+(quizIdx+1)+' of '+quizCards.length;
+  document.getElementById('quizProgFill').style.width=((quizIdx+1)/quizCards.length*100)+'%';
+}
 function showAns(){document.getElementById('quizA').style.display='block'}
 function nextCard(){quizIdx=(quizIdx+1)%quizCards.length;showCard()}
 function stopQuiz(){document.getElementById('quizOverlay').style.display='none'}
-function exportAnki(){
-  if(quizCards.length===0){toast('⚠️ No flashcards to export!');return}
-  const csv=quizCards.map(c=>'"'+c.q.replace(/"/g,'""')+'","'+c.a.replace(/"/g,'""')+'"').join('\n');
-  const blob=new Blob([csv],{type:'text/csv'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='MartinBrain_Anki.csv';a.click();
-  toast('📤 Anki CSV downloaded!');
+
+// ── ANKI EXPORT ──
+function exportTopicAnki(i){
+  const cards=allTopics[i]?.cards||[];
+  if(cards.length===0){toast('No cards for this topic.');return}
+  downloadCSV(cards,allTopics[i].title.replace(/\s+/g,'_'));
 }
-function downloadMd(){
-  if(!lastMd)return;
-  const blob=new Blob([lastMd],{type:'text/markdown'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='martinbrain-notes.md';a.click();
-  toast('⬇️ Markdown saved!');
+function exportAllAnki(){
+  if(allCards.length===0){toast('⚠️ Process the book first!');return}
+  downloadCSV(allCards,'MartinBrain_FullBook');
+}
+function downloadCSV(cards,name){
+  const csv=cards.map(c=>'"'+c.q.replace(/"/g,'""')+'","'+c.a.replace(/"/g,'""')+'"').join('\n');
+  const blob=new Blob([csv],{type:'text/csv'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name+'_Anki.csv';a.click();
+  toast('📤 Anki CSV exported — '+cards.length+' cards!');
+}
+
+// ── TOPIC TOOLS ──
+const TOOLS={
+  summary:t=>`Generate a concise but thorough summary for: "${t}"\n\n# 📋 Summary: ${t}\n8 high-yield bullet points.\n\n# 🧒 Simple Explanation\nReal-world analogy. 2 short paragraphs.\n\n# ⚡ High-Yield Points\nTop 8 most-tested exam facts.`,
+  layman:t=>`Explain "${t}" simply.\n\n# 🧒 Simple Guide: ${t}\n## What Is It?\n## Real-World Analogy\n## Step by Step\n## Why It Matters\n## Common Misconceptions`,
+  flashcards:t=>`Make 25 flashcards for: "${t}"\nFormat each:\n**Q:** [question] **A:** [answer]`,
+  mnemonics:t=>`Create mnemonics for: "${t}"\n\n# 🧠 Mnemonics: ${t}\n## Acronyms\n## Story Method\n## Memory Hooks`,
+  highyield:t=>`High-yield exam points for: "${t}"\n\n# ⚡ High-Yield: ${t}\n## Top 20 Facts\n## Tricky Points\n## Key Values`,
+  exam:t=>`Exam prep for: "${t}"\n\n# 🎯 Exam Prep: ${t}\n## 10 MCQs (mark correct ✅)\n## 5 Short Answer Questions with model answers`,
+  anki:t=>`35 Anki flashcards for: "${t}"\n**Q:** [question] **A:** [answer]\n\nThen:\n| Question | Answer |\n|---|---|\n[all 35]`,
+};
+
+async function runTool(tool){
+  const topic=document.getElementById('topicInput').value.trim();
+  if(!topic){showErr('Enter a topic first.');document.getElementById('topicInput').focus();return}
+  if(!GROQ_KEY){openModal();return}
+  clearErr();
+  toast('⏳ Generating…',8000);
+  try{
+    const md=await groq(TOOLS[tool](topic),4000);
+    if(!md)throw new Error('Empty response');
+    // Show result in a floating panel
+    showQuickResult(md,topic);
+  }catch(e){showErr(e.message)}
+}
+
+function showQuickResult(md,topic){
+  // Create a topic block at the top of bookOutput
+  document.getElementById('emptyState').style.display='none';
+  document.getElementById('bookOutput').style.display='block';
+  const id='quick-'+Date.now();
+  const block=document.createElement('div');
+  block.className='topic-block';
+  block.id=id;
+  block.innerHTML=`
+    <div class="topic-block-header" onclick="this.parentElement.classList.toggle('collapsed')">
+      <div class="tbh-num">Quick Tool</div>
+      <div class="tbh-title">${topic}</div>
+      <div class="tbh-badge done">✅ Ready</div>
+      <div class="tbh-toggle">▼</div>
+    </div>
+    <div class="topic-block-body">
+      <div class="md-inner" id="qr-${id}"></div>
+    </div>`;
+  document.getElementById('bookOutput').prepend(block);
+  const container=document.getElementById('qr-'+id);
+  container.innerHTML=marked.parse(md);
+
+  // Style flashcards
+  container.querySelectorAll('p').forEach(p=>{
+    const txt=p.innerHTML;
+    if(txt.includes('<strong>Q:</strong>')&&txt.includes('<strong>A:</strong>')){
+      const match=txt.match(/<strong>Q:<\/strong>\s*(.*?)\s*<strong>A:<\/strong>\s*(.*)/);
+      if(match){
+        const fc=document.createElement('div');fc.className='fc';
+        fc.innerHTML='<div class="fc-q">❓ '+match[1].trim()+'</div><div class="fc-a">💡 '+match[2].trim()+'</div>';
+        p.replaceWith(fc);
+      }
+    }
+  });
+  block.scrollIntoView({behavior:'smooth',block:'start'});
+  toast('✅ Done!');
 }
 </script>
 </body>
