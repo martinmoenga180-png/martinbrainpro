@@ -385,11 +385,11 @@ async function handleFile(file){
 // Splits pages into topic-sized chunks (~8-15 pages each, max 10000 chars)
 function chunkPages(pages){
   const chunks=[];
-  const CHUNK_SIZE=10; // pages per chunk
+  const CHUNK_SIZE=8; // pages per chunk
   for(let i=0;i<pages.length;i+=CHUNK_SIZE){
     const chunkPages=pages.slice(i,i+CHUNK_SIZE);
     const text=chunkPages.join('\n').trim();
-    if(text.length>100) chunks.push({pages:`${i+1}–${Math.min(i+CHUNK_SIZE,pages.length)}`,text:text.substring(0,9000)});
+    if(text.length>100) chunks.push({pages:`${i+1}–${Math.min(i+CHUNK_SIZE,pages.length)}`,text:text.substring(0,4000)});
   }
   return chunks;
 }
@@ -397,15 +397,30 @@ function chunkPages(pages){
 // ── GROQ CALL ──
 const SYSTEM='You are MartinBrain AI Study Architect — an elite medical/academic AI. Output ONLY clean structured Markdown. Teaching tone: clear, precise, student-friendly. No preamble.';
 
-async function groq(userMsg,maxTokens=4000){
-  const resp=await fetch('https://api.groq.com/openai/v1/chat/completions',{
-    method:'POST',
-    headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_KEY},
-    body:JSON.stringify({model:'llama-3.3-70b-versatile',messages:[{role:'system',content:SYSTEM},{role:'user',content:userMsg}],temperature:0.6,max_tokens:maxTokens})
-  });
-  if(!resp.ok){const e=await resp.json().catch(()=>({}));throw new Error(e.error?.message||'Groq error '+resp.status)}
-  const data=await resp.json();
-  return data.choices?.[0]?.message?.content||'';
+async function groq(userMsg,maxTokens=2000,retries=5){
+  for(let attempt=0;attempt<retries;attempt++){
+    const resp=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_KEY},
+      body:JSON.stringify({model:'llama-3.3-70b-versatile',messages:[{role:'system',content:SYSTEM},{role:'user',content:userMsg}],temperature:0.6,max_tokens:maxTokens})
+    });
+    if(resp.ok){
+      const data=await resp.json();
+      return data.choices?.[0]?.message?.content||'';
+    }
+    const e=await resp.json().catch(()=>({}));
+    const msg=e.error?.message||'';
+    const waitMatch=msg.match(/try again in ([0-9.]+)s/i);
+    const waitSecs=waitMatch?Math.ceil(parseFloat(waitMatch[1]))+3:30;
+    if(resp.status===429){
+      const log=document.getElementById('genLog');
+      if(log){log.textContent+='⏳ Rate limit — auto-waiting '+waitSecs+'s then retrying ('+( attempt+1)+'/'+retries+')…\n';log.scrollTop=log.scrollHeight;}
+      await new Promise(r=>setTimeout(r,waitSecs*1000));
+    } else {
+      throw new Error(msg||'Groq error '+resp.status);
+    }
+  }
+  throw new Error('Still rate limited after retries — will continue with next topic.');
 }
 
 // ── MAIN PROCESSING ──
@@ -517,36 +532,37 @@ ${chunks.map((c,i)=>`Section ${i+1}: ${c.text.substring(0,300)}`).join('\n\n')}`
     document.getElementById('nav-'+i).scrollIntoView({behavior:'smooth',block:'nearest'});
 
     try{
-      const prompt=`You are teaching the topic: "${title}" from a study document.
+      const prompt=`CURRENT SECTION: "${title}" — Pages ${allTopics[i].pages}
 
-Generate a focused, easy-to-understand study toolkit in Markdown. Write as a great teacher — clear, simple, memorable. Avoid jargon without explanation.
+INSTRUCTIONS:
+- Treat this as a standalone deep-dive. Do NOT skip any concept in this section.
+- Do NOT summarize — READ and TEACH every detail in the text below.
+- If you reach your token limit mid-section, stop and write "PARTIAL COMPLETED" so the next chunk continues.
+- Start your response by stating: "📍 Analyzing: ${title} (Pages ${allTopics[i].pages})"
 
-# 📋 Summary: ${title}
-6-8 bullet points. What are the key things a student MUST know about this topic?
+# 📖 Full Notes: ${title}
+Use ## subheadings. **Bold** every key term and define it. Explain all mechanisms, steps, values, and clinical points from the text. Miss nothing.
 
 # 🧒 Simple Explanation
-Explain this topic simply — use a real-world analogy that makes it click. 2-3 short paragraphs.
+One vivid real-world analogy that makes the hardest concept in this section click.
 
-# 📖 Study Notes
-Organized with ## subheadings. **Bold** all key terms with their definitions. Cover mechanisms, processes, clinical relevance. Be thorough but concise.
+# 📋 Key Points
+8-10 must-know bullet points pulled directly from this text.
 
-# 🃏 Flashcards (15 cards)
-Format each card on its own line:
-**Q:** [focused question] **A:** [clear concise answer]
-
-# 🧠 Mnemonics
-1-2 acronym mnemonics or memory hooks for the most important lists in this topic.
+# 🃏 Flashcards
+10 cards based strictly on this text:
+**Q:** [specific question from text] **A:** [precise answer from text]
 
 # ⚡ High-Yield Exam Points
-Top 8 most-tested facts about "${title}". Be very specific.
+Top 6 most examinable facts from this specific section. Include exact numbers and values.
 
 # 🎯 Practice Questions
-3 MCQs (4 options each, mark correct with ✅). 2 short answer questions with model answers.
+2 MCQs (4 options each, mark correct with ✅ and explain why). 1 short answer with a detailed model answer.
 
-DOCUMENT TEXT (Pages ${allTopics[i].pages}):
+TEXT TO TEACH (Pages ${allTopics[i].pages}):
 ${text}`;
 
-      const md=await groq(prompt,4000);
+      const md=await groq(prompt,1500);
       if(!md||md.length<50)throw new Error('Empty response');
 
       // Parse flashcards
@@ -580,8 +596,12 @@ ${text}`;
       document.getElementById('badge-'+i).textContent='❌ Error';
     }
 
-    // Small delay between requests to avoid rate limiting
-    if(i<chunks.length-1)await new Promise(r=>setTimeout(r,1200));
+    // Delay between requests to respect Groq rate limits (TPM)
+    if(i<chunks.length-1){
+      const delay=1000; // 5 seconds between topics
+      addLog('⏳ Waiting 22s before next topic (rate limit)…');
+      await new Promise(r=>setTimeout(r,delay));
+    }
   }
 
   isProcessing=false;
