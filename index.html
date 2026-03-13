@@ -198,7 +198,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:0
   </div>
   <div style="display:flex;align-items:center;gap:10px">
     <div id="apiStatus" style="font-size:.7rem;color:var(--red)">🔴 No key set</div>
-    <button class="hbtn" onclick="openModal()">⚙️ OpenRouter API Key (Free)</button>
+    <button class="hbtn" onclick="openModal()">⚙️ Groq API Key (Free)</button>
   </div>
 </header>
 
@@ -290,14 +290,14 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:0
   <div class="modal">
     <h3>⚙️ Groq API Key</h3>
     <div class="modal-info">
-      🆓 <strong>OpenRouter is completely free</strong> — no credit card needed!<br><br>
-      1. Go to <strong>openrouter.ai</strong><br>
+      🆓 <strong>Groq is completely free</strong> — no credit card needed!<br><br>
+      1. Go to <strong>console.groq.com</strong><br>
       2. Sign up with Google or email<br>
-      3. Click <strong>Keys → Create Key</strong><br>
-      4. Copy the key (starts with <code>sk-or-</code>) and paste below
+      3. Click <strong>API Keys → Create API Key</strong><br>
+      4. Copy the key (starts with <code>gsk_</code>) and paste below
     </div>
     <label>Your Groq API Key</label>
-    <input type="password" id="keyInput" placeholder="sk-or-…" />
+    <input type="password" id="keyInput" placeholder="gsk_…" />
     <div class="modal-actions">
       <button class="mbtn cancel" onclick="closeModal()">Cancel</button>
       <button class="mbtn save" onclick="saveKey()">💾 Save Key</button>
@@ -327,7 +327,7 @@ header{background:var(--surface);border-bottom:1px solid var(--border);padding:0
 pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/'+pdfjsLib.version+'/pdf.worker.min.js';
 mermaid.initialize({startOnLoad:false,theme:'dark',securityLevel:'loose'});
 
-let GROQ_KEY=localStorage.getItem('mb_or_key')||'';
+let GROQ_KEY=localStorage.getItem('mb_groq_key')||'';
 let allPages=[];
 let allTopics=[];       // [{title, text}]
 let allCards=[];        // all flashcards across entire book
@@ -338,7 +338,7 @@ let isProcessing=false;
 function openModal(){document.getElementById('keyInput').value=GROQ_KEY;document.getElementById('modalBg').classList.add('show')}
 function closeModal(){document.getElementById('modalBg').classList.remove('show')}
 function closeModalOutside(e){if(e.target.id==='modalBg')closeModal()}
-function saveKey(){GROQ_KEY=document.getElementById('keyInput').value.trim();localStorage.setItem('mb_or_key',GROQ_KEY);closeModal();updateStatus();toast('✅ Key saved!')}
+function saveKey(){GROQ_KEY=document.getElementById('keyInput').value.trim();localStorage.setItem('mb_groq_key',GROQ_KEY);closeModal();updateStatus();toast('✅ Key saved!')}
 function updateStatus(){const el=document.getElementById('apiStatus');el.textContent=GROQ_KEY?'🟢 Key active':'🔴 No key set';el.style.color=GROQ_KEY?'var(--green)':'var(--red)'}
 updateStatus();
 if(!GROQ_KEY)setTimeout(()=>toast('👋 Click ⚙️ Groq API Key to get started — it\'s free!',5000),1000);
@@ -385,11 +385,11 @@ async function handleFile(file){
 // Splits pages into topic-sized chunks (~8-15 pages each, max 10000 chars)
 function chunkPages(pages){
   const chunks=[];
-  const CHUNK_SIZE=8; // pages per chunk
+  const CHUNK_SIZE=10; // pages per chunk
   for(let i=0;i<pages.length;i+=CHUNK_SIZE){
     const chunkPages=pages.slice(i,i+CHUNK_SIZE);
     const text=chunkPages.join('\n').trim();
-    if(text.length>100) chunks.push({pages:`${i+1}–${Math.min(i+CHUNK_SIZE,pages.length)}`,text:text.substring(0,4000)});
+    if(text.length>100) chunks.push({pages:`${i+1}–${Math.min(i+CHUNK_SIZE,pages.length)}`,text:text.substring(0,9000)});
   }
   return chunks;
 }
@@ -397,30 +397,15 @@ function chunkPages(pages){
 // ── GROQ CALL ──
 const SYSTEM='You are MartinBrain AI Study Architect — an elite medical/academic AI. Output ONLY clean structured Markdown. Teaching tone: clear, precise, student-friendly. No preamble.';
 
-async function groq(userMsg,maxTokens=2000,retries=5){
-  for(let attempt=0;attempt<retries;attempt++){
-    const resp=await fetch('https://openrouter.ai/api/v1/chat/completions',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_KEY,'HTTP-Referer':'https://martinbrainpro.vercel.app','X-Title':'MartinBrain Pro'},
-      body:JSON.stringify({model:'meta-llama/llama-3.3-70b-instruct:free',messages:[{role:'system',content:SYSTEM},{role:'user',content:userMsg}],temperature:0.6,max_tokens:maxTokens})
-    });
-    if(resp.ok){
-      const data=await resp.json();
-      return data.choices?.[0]?.message?.content||'';
-    }
-    const e=await resp.json().catch(()=>({}));
-    const msg=e.error?.message||'';
-    const waitMatch=msg.match(/try again in ([0-9.]+)s/i);
-    const waitSecs=waitMatch?Math.ceil(parseFloat(waitMatch[1]))+1:15;
-    if(resp.status===429){
-      const log=document.getElementById('genLog');
-      if(log){log.textContent+='⏳ Rate limit — auto-waiting '+waitSecs+'s then retrying ('+( attempt+1)+'/'+retries+')…\n';log.scrollTop=log.scrollHeight;}
-      await new Promise(r=>setTimeout(r,waitSecs*1000));
-    } else {
-      throw new Error(msg||'Groq error '+resp.status);
-    }
-  }
-  throw new Error('Still rate limited after retries — will continue with next topic.');
+async function groq(userMsg,maxTokens=4000){
+  const resp=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_KEY},
+    body:JSON.stringify({model:'llama-3.3-70b-versatile',messages:[{role:'system',content:SYSTEM},{role:'user',content:userMsg}],temperature:0.6,max_tokens:maxTokens})
+  });
+  if(!resp.ok){const e=await resp.json().catch(()=>({}));throw new Error(e.error?.message||'Groq error '+resp.status)}
+  const data=await resp.json();
+  return data.choices?.[0]?.message?.content||'';
 }
 
 // ── MAIN PROCESSING ──
@@ -532,37 +517,36 @@ ${chunks.map((c,i)=>`Section ${i+1}: ${c.text.substring(0,300)}`).join('\n\n')}`
     document.getElementById('nav-'+i).scrollIntoView({behavior:'smooth',block:'nearest'});
 
     try{
-      const prompt=`CURRENT SECTION: "${title}" — Pages ${allTopics[i].pages}
+      const prompt=`You are teaching the topic: "${title}" from a study document.
 
-INSTRUCTIONS:
-- Treat this as a standalone deep-dive. Do NOT skip any concept in this section.
-- Do NOT summarize — READ and TEACH every detail in the text below.
-- If you reach your token limit mid-section, stop and write "PARTIAL COMPLETED" so the next chunk continues.
-- Start your response by stating: "📍 Analyzing: ${title} (Pages ${allTopics[i].pages})"
+Generate a focused, easy-to-understand study toolkit in Markdown. Write as a great teacher — clear, simple, memorable. Avoid jargon without explanation.
 
-# 📖 Full Notes: ${title}
-Use ## subheadings. **Bold** every key term and define it. Explain all mechanisms, steps, values, and clinical points from the text. Miss nothing.
+# 📋 Summary: ${title}
+6-8 bullet points. What are the key things a student MUST know about this topic?
 
 # 🧒 Simple Explanation
-One vivid real-world analogy that makes the hardest concept in this section click.
+Explain this topic simply — use a real-world analogy that makes it click. 2-3 short paragraphs.
 
-# 📋 Key Points
-8-10 must-know bullet points pulled directly from this text.
+# 📖 Study Notes
+Organized with ## subheadings. **Bold** all key terms with their definitions. Cover mechanisms, processes, clinical relevance. Be thorough but concise.
 
-# 🃏 Flashcards
-10 cards based strictly on this text:
-**Q:** [specific question from text] **A:** [precise answer from text]
+# 🃏 Flashcards (15 cards)
+Format each card on its own line:
+**Q:** [focused question] **A:** [clear concise answer]
+
+# 🧠 Mnemonics
+1-2 acronym mnemonics or memory hooks for the most important lists in this topic.
 
 # ⚡ High-Yield Exam Points
-Top 6 most examinable facts from this specific section. Include exact numbers and values.
+Top 8 most-tested facts about "${title}". Be very specific.
 
 # 🎯 Practice Questions
-2 MCQs (4 options each, mark correct with ✅ and explain why). 1 short answer with a detailed model answer.
+3 MCQs (4 options each, mark correct with ✅). 2 short answer questions with model answers.
 
-TEXT TO TEACH (Pages ${allTopics[i].pages}):
+DOCUMENT TEXT (Pages ${allTopics[i].pages}):
 ${text}`;
 
-      const md=await groq(prompt,2800);
+      const md=await groq(prompt,4000);
       if(!md||md.length<50)throw new Error('Empty response');
 
       // Parse flashcards
@@ -596,12 +580,8 @@ ${text}`;
       document.getElementById('badge-'+i).textContent='❌ Error';
     }
 
-    // Delay between requests to respect OpenRouter rate limits
-    if(i<chunks.length-1){
-      const delay=12000; // 12 seconds between topics
-      addLog('⏳ Waiting 12s before next topic (rate limit)…');
-      await new Promise(r=>setTimeout(r,delay));
-    }
+    // Small delay between requests to avoid rate limiting
+    if(i<chunks.length-1)await new Promise(r=>setTimeout(r,1200));
   }
 
   isProcessing=false;
